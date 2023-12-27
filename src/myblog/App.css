@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  nav {
+    background-color: #444;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  button {
+    color: white;
+    background-color: #333;
+    border: none;
+    padding: 10px;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #555;
+  }
+  
+  section {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .subNav {
+    display: flex;
+    flex-direction: column;
+    background-color: #666;
+    padding: 10px;
+    position: absolute;
+    top: 160px; 
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1;
+  }
+  
+  .subNav button {
+    color: white;
+    background-color: #444;
+    border: none;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .subNav button:hover {
+    background-color: #555;
+  }
