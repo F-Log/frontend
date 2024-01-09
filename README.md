@@ -1,4 +1,4 @@
-src/myblog 사용
+src/app 사용
 
 # Getting Started with Create React App
 
