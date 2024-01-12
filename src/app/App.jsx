@@ -9,6 +9,8 @@ import Log from './Log';
 import Setting from './Setting';
 import AuthButtons from './AuthButtons'; // AuthButtons 컴포넌트를 임포트합니다.
 import NavigationButtons from './NavigationButtons';
+import ChangePw from './ChangePw';
+import DeleteAccount from './DeleteAccount';
 import './App.css';
 
 function App() {
@@ -32,6 +34,8 @@ function App() {
           <Route path="/inbody" element={<InBody />} />
           <Route path="/log" element={<Log />} />
           <Route path="/setting" element={<Setting />} />
+          <Route path="/changepw" element={<ChangePw />} />
+          <Route path="/deleteaccount" element={<DeleteAccount />} />
         </Routes>
         </section>
       </div>
