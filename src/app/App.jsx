@@ -11,11 +11,13 @@ import AuthButtons from './AuthButtons'; // AuthButtons 컴포넌트를 임포�
 import NavigationButtons from './NavigationButtons';
 import ChangePw from './ChangePw';
 import DeleteAccount from './DeleteAccount';
+import { FoodProvider } from './FoodContext';
 import './App.css';
 
 function App() {
 
   return (
+    <FoodProvider>
     <Router>
       <div className="app">
         <header className="header">
@@ -40,6 +42,7 @@ function App() {
         </section>
       </div>
     </Router>
+    </FoodProvider>
   );
 }
 

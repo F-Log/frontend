@@ -1,5 +1,5 @@
-// FoodSearchPage.jsx
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { FoodContext } from './FoodContext'; // 컨텍스트 경로에 맞게 수정해주세요.
 
 function FoodInputPopup({ selectedFood, onClose, onSave }) {
   const [foodData, setFoodData] = useState({
@@ -89,19 +89,17 @@ function FoodInputPopup({ selectedFood, onClose, onSave }) {
 
 function Search() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [recentSearches, setRecentSearches] = useState([]);
-  const [todaysMeals, setTodaysMeals] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [selectedFood, setSelectedFood] = useState('');
+  const { recentSearches, setRecentSearches, todaysMeals, setTodaysMeals } = useContext(FoodContext);
 
-  const handleSearch = () => {
-    setRecentSearches(prev => [...prev, searchTerm]);
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+    setRecentSearches(prevSearches => [...prevSearches, term]);
     setIsPopupOpen(true);
-    setSelectedFood(searchTerm);
   };
 
-  const addToTodayMeals = (foodData) => {
-    setTodaysMeals(prev => [...prev, foodData]);
+  const handleSaveFood = (foodData) => {
+    setTodaysMeals(prevMeals => [...prevMeals, foodData]);
     setIsPopupOpen(false);
   };
 
@@ -112,41 +110,40 @@ function Search() {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <button onClick={handleSearch}>검색</button>
+      <button onClick={() => handleSearch(searchTerm)}>검색</button>
 
+      {isPopupOpen && (
+        <FoodInputPopup 
+          selectedFood={searchTerm}
+          onClose={() => setIsPopupOpen(false)}
+          onSave={handleSaveFood}
+        />
+      )}
+
+      {/* 최근 검색어 목록 */}
       <div>
         <h2>최근 검색어</h2>
-        {recentSearches.slice(0, 10).map((term, index) => (
-          <button key={index} onClick={() => {
-            setSearchTerm(term);
-            handleSearch();
-          }}>
-            {term}
+        {recentSearches.slice(-10).map((search, index) => (
+          <button key={index} onClick={() => handleSearch(search)}>
+            {search}
           </button>
         ))}
       </div>
 
+      {/* 오늘의 식단 목록 */}
       <div>
         <h2>오늘의 식단</h2>
         {todaysMeals.map((meal, index) => (
           <div key={index}>
-            <div>식품명: {meal.foodName}</div>
-            <div>양: {meal.amount}g</div>
-            <div>에너지: {meal.energy}kcal</div>
-            <div>탄수화물: {meal.carbs}g</div>
-            <div>지방: {meal.fat}g</div>
-            <div>단백질: {meal.protein}g</div>
-          </div>
+          <div>식품명: {meal.foodName}</div>
+          <div>양: {meal.amount}g</div>
+          <div>에너지: {meal.energy}kcal</div>
+          <div>탄수화물: {meal.carbs}g</div>
+          <div>지방: {meal.fat}g</div>
+          <div>단백질: {meal.protein}g</div>
+        </div>
         ))}
       </div>
-
-      {isPopupOpen && (
-        <FoodInputPopup 
-          selectedFood={selectedFood}
-          onClose={() => setIsPopupOpen(false)}
-          onSave={addToTodayMeals}
-        />
-      )}
     </div>
   );
 }
